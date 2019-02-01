@@ -12,7 +12,8 @@ class StakeholdersController < ApplicationController
   # POST /stakeholders
   def create
     @stakeholder = Stakeholder.create!(stakeholder_params)
-    json_response(@stakeholder, :created)
+    Rating.create(power: params[:power], interest: params[:interest], positivity: params[:positivity], stakeholder_id: @stakeholder.id)
+    json_response(@stakeholder.as_json(include: [:ratings]))
   end
 
   # GET /stakeholders/:id

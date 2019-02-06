@@ -18,26 +18,28 @@ class StakeholdersController < ApplicationController
 
   # GET /stakeholders/:id
   def show
-    json_response(@stakeholder)
+    @stakeholder=Stakeholder.find(params[:id])
+    json_response(@stakeholder.as_json(include: [:ratings]))
   end
 
-  # PUT /stakeholders/:id
+  # PATCH /stakeholders/:id
   def update
     @stakeholder.update(stakeholder_params)
-    head :no_content
+    Rating.create(power: params[:power], interest: params[:interest], positivity: params[:positivity], stakeholder_id: @stakeholder.id)
+    json_response(@stakeholder.as_json(include: [:ratings]))
   end
 
   # DELETE /stakeholders/:id
   def destroy
+    @stakeholder = Stakeholder.find(params[:id])
     @stakeholder.destroy
-    head :no_content
   end
 
   private
 
   def stakeholder_params
     # whitelist params
-    params.permit(:title, :name, :alias)
+    params.permit(:title, :name, :alias, :note)
   end
 
   def set_stakeholder

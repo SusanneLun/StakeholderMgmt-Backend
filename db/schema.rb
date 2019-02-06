@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_133034) do
+ActiveRecord::Schema.define(version: 2019_02_04_153750) do
+
+  create_table "project_stakeholders", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "stakeholder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_stakeholders_on_project_id"
+    t.index ["stakeholder_id"], name: "index_project_stakeholders_on_stakeholder_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"

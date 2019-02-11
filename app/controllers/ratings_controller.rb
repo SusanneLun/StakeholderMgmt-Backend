@@ -20,7 +20,7 @@ class RatingsController < ApplicationController
 
     @stakeholder.ratings.create!(rating_params)
     # json_response(@stakeholder, :created)
-    p @stakeholder.ratings.last
+    print @stakeholder.ratings.last
     render json: @stakeholder.as_json(include: [:ratings])
   end
 

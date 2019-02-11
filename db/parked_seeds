@@ -38,3 +38,23 @@ Stakeholder.create(name: 'Alison Eckhardt', title: "CIO", alias: 'R2D2')
 
 Project.create(name: "Digital Transformation", description: "Integrating all social, web, mobile, ecommerce, service efforts and investments to deliver an integrated and frictionless customer experience.")
 Project.create(name: "Data Analytics for Project Management", description: "Develop and implement tools to analyse project data.")
+
+
+puts "Destroying all references on table"
+
+# Stakeholder.destroy_all
+Rating.destroy_all
+# Project.destroy_all
+
+puts "Creating new references"
+
+puts "creating ratings and project_stakeholder join references"
+Stakeholder.all.each do |stakeholder|
+  p stakeholder
+  2.times do
+    Rating.create(stakeholder: stakeholder, power: rand(1..10), interest: rand(1..10), positivity: rand(1..10))
+  end
+  ProjectStakeholder.create(project_id: 1, stakeholder: stakeholder)
+end
+
+puts "done"

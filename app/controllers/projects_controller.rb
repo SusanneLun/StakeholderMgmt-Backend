@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  before_action :set_project, only: [:show, :update, :destroy]
+  # before_action :set_project, only: [:show, :update, :destroy]
 
   # GET /projects
   def index
@@ -10,14 +10,24 @@ class ProjectsController < ApplicationController
   end
 
   # POST /projects
-  def create
-    @project = Project.create!(project_params)
+def create
+    @project = Project.create!(project_params, user_id: current_user.id)
+    if @project.save
     json_response(@project, :created)
+    else
+    render json: {error: "Unable to create project."}, status: 400
+    end
   end
 
+
   # GET /projects/:id
-  def show
-    json_response(@project)
+  def get_stakeholders
+    @project = Project.find(params["project_id"])
+    if @project
+      render json: @project.stakeholders.as_json(include: [:ratings])
+    else
+      render json: {error: "Stakeholders not found."}, status: 404
+    end
   end
 
   # PUT /projects/:id
@@ -36,7 +46,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     # whitelist params
-    params.permit(:name, :description)
+    params.permit(:name, :description, :user_id, :project_id)
   end
 
   def set_project

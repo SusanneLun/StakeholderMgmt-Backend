@@ -13,6 +13,7 @@ class StakeholdersController < ApplicationController
   def create
     @stakeholder = Stakeholder.create!(stakeholder_params)
     Rating.create(power: params[:power], interest: params[:interest], positivity: params[:positivity], stakeholder_id: @stakeholder.id)
+    ProjectStakeholder.create(stakeholder_id: @stakeholder.id, project_id: params[:project_id])
     json_response(@stakeholder.as_json(include: [:ratings]))
   end
 

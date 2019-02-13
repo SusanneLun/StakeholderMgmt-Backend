@@ -40,7 +40,7 @@ class RatingsController < ApplicationController
 
   def rating_params
     # whitelist params
-    params.permit(:power, :interest, :positivity, :stakeholder_id, :rating)
+    params.permit(:power, :interest, :positivity, :stakeholder_id, :rating, :project_id)
   end
 
 #  def set_stakeholder_rating

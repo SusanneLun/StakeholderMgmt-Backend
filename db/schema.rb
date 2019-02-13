@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_120244) do
+ActiveRecord::Schema.define(version: 2019_02_12_135213) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "project_stakeholders", force: :cascade do |t|
     t.integer "project_id"
@@ -36,7 +42,16 @@ ActiveRecord::Schema.define(version: 2019_02_06_120244) do
     t.integer "stakeholder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id"
     t.index ["stakeholder_id"], name: "index_ratings_on_stakeholder_id"
+  end
+
+  create_table "stakeholder_strategies", force: :cascade do |t|
+    t.integer "stakeholder_id"
+    t.integer "strategy_id"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stakeholders", force: :cascade do |t|
@@ -47,6 +62,13 @@ ActiveRecord::Schema.define(version: 2019_02_06_120244) do
     t.string "alias"
     t.string "name"
     t.string "note"
+  end
+
+  create_table "strategies", force: :cascade do |t|
+    t.string "option"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

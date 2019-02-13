@@ -24,7 +24,7 @@ def create
   def get_stakeholders
     @project = Project.find(params["project_id"])
     if @project
-      render json: @project.stakeholders.as_json(include: [:ratings])
+      render json: @project.stakeholders.as_json(include: [:ratings, :strategies])
     else
       render json: {error: "Stakeholders not found."}, status: 404
     end

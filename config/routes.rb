@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :strategies
+  resources :categories
   resources :users, only: [:index, :show, :create] do
     resources :projects
   end
@@ -7,6 +9,8 @@ Rails.application.routes.draw do
   get 'validate', to: 'users#validate'
   get 'user_projects', to: 'users#get_projects'
   post 'project_stakeholders', to: 'projects#get_stakeholders'
+  get 'stakeholder_strategies', to: 'users#get_strategies'
+
   resources :stakeholders do
     resources :ratings
 

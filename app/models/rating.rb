@@ -1,6 +1,7 @@
 class Rating < ApplicationRecord
   # model association
   belongs_to :stakeholder
+  belongs_to :project
 
   # validation
   # validates_presence_of :stakeholder_id

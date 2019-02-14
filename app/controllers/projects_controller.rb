@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
 
   # POST /projects
 def create
-    @project = Project.create!(project_params, user_id: current_user.id)
+    @project = Project.create!(name: params[:name], description: params[:description], user_id: current_user.id)
     if @project.save
     json_response(@project, :created)
     else
@@ -46,7 +46,7 @@ def create
 
   def project_params
     # whitelist params
-    params.permit(:name, :description, :user_id, :project_id)
+    params.permit(:name, :description, :user_id, :project_id, :project)
   end
 
   def set_project
